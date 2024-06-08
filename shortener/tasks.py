@@ -12,7 +12,7 @@ redis_conn = redis.Redis(host=settings.REDIS_HOST, port=settings.REDIS_PORT, db=
 def process_redis_data():
     data = redis_conn.hgetall('click_counts')
     if data:
-        important_data = {k.decode(): int(v.decode()) for (k, v) in data.items() if int(v.decode()) >= 20}
+        important_data = {k.decode(): int(v.decode()) for (k, v) in data.items()}
         update_urls_count(important_data)
         reset_important_data_keys(important_data)
         print("Data retrieved from Redis:", data)
